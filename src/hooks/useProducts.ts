@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { Product } from '../types';
+import type { Product } from '../types';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
