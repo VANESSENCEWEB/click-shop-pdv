@@ -4,13 +4,11 @@ import { useAuth } from '../hooks/useAuth';
 
 export function LoginPage() {
   const [operatorCode, setOperatorCode] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login
     if (operatorCode.length > 0) {
       login(operatorCode);
       navigate('/pdv');

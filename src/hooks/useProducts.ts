@@ -1,21 +1,32 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { Product } from '../types';
+import type { Product } from '../types';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'products'), (snapshot) => {
-      const productsData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Product[];
-      setProducts(productsData);
-      setLoading(false);
-    });
+    const unsubscribe = onSnapshot(
+      collection(db, 'products'),
+      (snapshot) => {
+        const productsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Product[];
+
+        setProducts(productsData);
+        setLoading(false);
+        setError(null);
+      },
+      (err) => {
+        console.error('Erro ao buscar produtos:', err);
+        setError(err.message);
+        setLoading(false);
+      }
+    );
 
     return () => unsubscribe();
   }, []);
@@ -24,7 +35,5 @@ export function useProducts() {
     await addDoc(collection(db, 'products'), product);
   };
 
-  // Outros métodos...
-
-  return { products, loading, addProduct };
+  return { products, loading, error, addProduct };
 }
