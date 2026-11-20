@@ -12,10 +12,24 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
+export type PaymentMethod = 'dinheiro' | 'cartao' | 'pix';
+
+export interface SaleItem {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  subtotal: number;
+}
+
 export interface Sale {
   id: string;
-  items: CartItem[];
+  items: SaleItem[];
   total: number;
-  date: string;
+  paymentMethod: PaymentMethod;
+  amountReceived: number;
+  change: number;
   operator: string;
+  /** Data local do comprovante (no Firestore fica o horário do servidor). */
+  date: string;
 }

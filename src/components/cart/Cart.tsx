@@ -10,9 +10,10 @@ import {
 interface CartProps {
   items: CartItem[];
   onUpdateCart: (newCart: CartItem[]) => void;
+  onCheckout: () => void;
 }
 
-export function Cart({ items, onUpdateCart }: CartProps) {
+export function Cart({ items, onUpdateCart, onCheckout }: CartProps) {
   if (items.length === 0) {
     return (
       <div className="bg-white border rounded-xl p-4 shadow-sm">
@@ -48,6 +49,8 @@ export function Cart({ items, onUpdateCart }: CartProps) {
             <div className="flex items-center justify-between mt-3">
               <div className="flex items-center gap-2">
                 <button
+                  type="button"
+                  aria-label={`Diminuir quantidade de ${item.name}`}
                   onClick={() =>
                     onUpdateCart(
                       updateQuantity(items, item.id, item.quantity - 1)
@@ -61,12 +64,15 @@ export function Cart({ items, onUpdateCart }: CartProps) {
                 <span className="w-8 text-center">{item.quantity}</span>
 
                 <button
+                  type="button"
+                  aria-label={`Aumentar quantidade de ${item.name}`}
                   onClick={() =>
                     onUpdateCart(
                       updateQuantity(items, item.id, item.quantity + 1)
                     )
                   }
-                  className="w-8 h-8 border rounded-lg hover:bg-gray-100"
+                  disabled={item.quantity >= item.stock}
+                  className="w-8 h-8 border rounded-lg hover:bg-gray-100 disabled:opacity-40"
                 >
                   +
                 </button>
@@ -86,6 +92,14 @@ export function Cart({ items, onUpdateCart }: CartProps) {
           {formatPrice(getCartTotal(items))}
         </span>
       </div>
+
+      <button
+        type="button"
+        onClick={onCheckout}
+        className="mt-4 w-full rounded-lg bg-green-600 py-3 font-medium text-white hover:bg-green-700"
+      >
+        Finalizar venda
+      </button>
     </div>
   );
 }

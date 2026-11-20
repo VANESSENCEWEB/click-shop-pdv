@@ -1,1 +1,16 @@
 @import "tailwindcss";
+/* Impressão do comprovante: só o recibo aparece no papel. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .receipt-print,
+  .receipt-print * {
+    visibility: visible;
+  }
+  .receipt-print {
+    position: absolute;
+    inset: 0 auto auto 0;
+    box-shadow: none;
+  }
+}
