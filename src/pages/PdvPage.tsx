@@ -87,12 +87,12 @@ export function PdvPage() {
   }
 
   return (
-    <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 lg:grid-cols-[1fr_380px]">
-      <section aria-labelledby="pdv-title">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <section aria-labelledby="pdv-title" className="min-w-0">
         <div className="flex animate-fade-up items-end justify-between gap-4">
           <div>
             <p className="text-[15px] font-medium text-muted">{today}</p>
-            <h1 id="pdv-title" className="mt-1 font-display text-5xl font-bold tracking-[-0.035em]">
+            <h1 id="pdv-title" className="mt-1 font-display text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
               Ponto de Venda.
             </h1>
           </div>

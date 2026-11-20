@@ -24,7 +24,7 @@ export function Header() {
 
   return (
     <header className="glass sticky top-0 z-40 border-b border-black/[0.06]">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Logo />
 
         {isAuthenticated && (
@@ -39,7 +39,7 @@ export function Header() {
 
             <span className="hidden h-5 w-px bg-black/10 md:block" aria-hidden="true" />
 
-            <span className="inline-flex items-center gap-2 text-[13px] text-muted">
+            <span className="hidden items-center gap-2 text-[13px] text-muted sm:inline-flex">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34c759] opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34c759]" />

@@ -86,8 +86,8 @@ export function PromoTicker() {
         </span>
 
         <div key={index} className="min-w-0 flex-1 animate-fade-up" aria-live="polite">
-          <p className="truncate text-[16px] font-semibold tracking-tight">{promo.title}</p>
-          <p className="truncate text-[13px] text-white/75">{promo.detail}</p>
+          <p className="text-[15px] font-semibold leading-snug tracking-tight sm:truncate sm:text-[16px]">{promo.title}</p>
+          <p className="text-[13px] text-white/75 sm:truncate">{promo.detail}</p>
         </div>
 
         <div className="flex shrink-0 gap-1.5" role="tablist" aria-label="Escolher promoção">
