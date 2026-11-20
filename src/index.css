@@ -1,4 +1,105 @@
 @import "tailwindcss";
+
+/* Identidade visual do Click Shop, inspirada no visual da Apple:
+   fonte do sistema (SF Pro no Mac), cinza claro, azul de ação e vermelho de sistema. */
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+
+  --color-paper: #f5f5f7;
+  --color-line: #e5e5ea;
+  --color-ink: #1d1d1f;
+  --color-ink-soft: #2c2c2e;
+  --color-muted: #6e6e73;
+  --color-brand: #0071e3;
+  --color-brand-dark: #0062c4;
+  --color-brand-soft: #e8f1fc;
+  --color-danger: #ff3b30;
+  --color-ok: #248a3d;
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-pop: pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-print: print 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-flash: flash 1.2s ease-out;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop {
+    50% { transform: scale(1.06); }
+  }
+  /* Linha do cupom saindo da impressora: desce e aparece. */
+  @keyframes print {
+    from { opacity: 0; transform: translateY(-10px); clip-path: inset(0 0 100% 0); }
+    to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+  }
+  @keyframes shine {
+    0%, 60% { transform: translateX(0); }
+    100% { transform: translateX(450%); }
+  }
+  @keyframes progress {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  /* Marca-texto rápido na linha que acabou de mudar. */
+  @keyframes flash {
+    from { background-color: rgba(0, 113, 227, 0.12); }
+    to { background-color: transparent; }
+  }
+}
+
+body {
+  @apply bg-paper font-sans text-ink antialiased;
+  letter-spacing: -0.011em;
+}
+
+/* Números de dinheiro alinhados (R$ 18,90 / R$ 5,49 ocupam a mesma largura). */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vidro fosco, como as barras do macOS/iOS. */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Texto em gradiente para títulos de impacto. */
+.text-gradient {
+  background: linear-gradient(90deg, #0071e3 0%, #5e5ce6 55%, #bf5af2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Borda serrilhada do comprovante, como papel de bobina. */
+.receipt-edge {
+  --tooth: 10px;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth) 100%;
+}
+
+/* Quem prefere menos movimento não vê animações. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Impressão do comprovante: só o recibo aparece no papel. */
 @media print {
   body * {
@@ -12,5 +113,6 @@
     position: absolute;
     inset: 0 auto auto 0;
     box-shadow: none;
+    mask: none;
   }
 }

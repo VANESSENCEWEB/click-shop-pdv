@@ -76,28 +76,30 @@ export function CheckoutModal({ cart, operator, onClose, onSuccess }: CheckoutMo
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+    <div className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/30 p-4 backdrop-blur-md">
       <form
         role="dialog"
         aria-modal="true"
         aria-labelledby="checkout-title"
         onSubmit={handleConfirm}
-        className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+        className="w-full max-w-md animate-scale-in rounded-[28px] bg-white p-7 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.35)]"
       >
-        <h2 id="checkout-title" className="text-2xl font-bold">Finalizar venda</h2>
-        <p className="mt-1 text-gray-600">
-          {cart.reduce((sum, item) => sum + item.quantity, 0)} itens ·{' '}
-          <strong className="text-blue-600">{formatPrice(total)}</strong>
+        <p className="text-[13px] font-medium text-muted">
+          {cart.reduce((sum, item) => sum + item.quantity, 0)} itens
         </p>
+        <h2 id="checkout-title" className="font-display text-[22px] font-bold tracking-tight">
+          Finalizar venda
+        </h2>
+        <p className="tabular mt-3 font-display text-5xl font-bold tracking-[-0.035em]">{formatPrice(total)}</p>
 
-        <fieldset className="mt-6">
-          <legend className="mb-2 text-sm font-medium">Forma de pagamento</legend>
-          <div className="grid grid-cols-3 gap-2">
+        <fieldset className="mt-7">
+          <legend className="mb-2 text-[13px] font-medium text-muted">Forma de pagamento</legend>
+          <div className="grid grid-cols-3 gap-0.5 rounded-xl bg-black/[0.05] p-1">
             {METODOS.map((item) => (
               <label
                 key={item.id}
-                className={`cursor-pointer rounded-lg border p-3 text-center font-medium ${
-                  method === item.id ? 'border-blue-600 bg-blue-50 text-blue-700' : 'hover:bg-gray-50'
+                className={`cursor-pointer rounded-lg py-2 text-center text-[14px] font-semibold transition-all duration-300 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand ${
+                  method === item.id ? 'bg-white text-ink shadow-[0_1px_4px_rgba(0,0,0,0.12)]' : 'text-muted hover:text-ink'
                 }`}
               >
                 <input
@@ -118,8 +120,8 @@ export function CheckoutModal({ cart, operator, onClose, onSuccess }: CheckoutMo
         </fieldset>
 
         {method === 'dinheiro' && (
-          <div className="mt-5">
-            <label htmlFor="amount-received" className="mb-1 block text-sm font-medium">
+          <div className="mt-5 animate-fade-in">
+            <label htmlFor="amount-received" className="mb-2 block text-[13px] font-medium text-muted">
               Valor recebido (R$)
             </label>
             <input
@@ -133,38 +135,38 @@ export function CheckoutModal({ cart, operator, onClose, onSuccess }: CheckoutMo
                 setError('');
               }}
               placeholder={formatPrice(total).replace('R$', '').trim()}
-              className="w-full rounded-lg border p-3 text-lg"
+              className="tabular w-full rounded-2xl bg-black/[0.05] px-4 py-3.5 text-[20px] font-semibold outline-none transition focus:bg-white focus:ring-4 focus:ring-brand/20"
             />
-            <p className="mt-2 text-sm text-gray-600" aria-live="polite">
-              Troco:{' '}
-              <strong className={change > 0 ? 'text-green-700' : ''}>
+            <div className="mt-3 flex items-center justify-between px-1" aria-live="polite">
+              <span className="text-[15px] text-muted">Troco</span>
+              <strong className={`tabular text-[20px] font-bold ${change > 0 ? 'text-ok' : 'text-ink'}`}>
                 {formatPrice(Math.max(change, 0))}
               </strong>
-            </p>
+            </div>
           </div>
         )}
 
         {error && (
-          <p role="alert" className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+          <p role="alert" className="mt-4 rounded-2xl bg-danger/10 p-3 text-[13px] font-medium text-danger">
             {error}
           </p>
         )}
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-7 flex gap-3">
           <button
             type="button"
             onClick={onClose}
             disabled={saving}
-            className="flex-1 rounded-lg border py-3 font-medium hover:bg-gray-50 disabled:opacity-50"
+            className="flex-1 rounded-full bg-black/[0.05] py-3.5 font-semibold transition hover:bg-black/[0.08] active:scale-[0.98] disabled:opacity-50"
           >
             Voltar
           </button>
           <button
             type="submit"
             disabled={saving || cashInvalid}
-            className="flex-1 rounded-lg bg-green-600 py-3 font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="flex-[1.4] rounded-full bg-brand py-3.5 font-semibold text-white transition hover:bg-[#0077ed] active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-black/[0.06] disabled:text-muted/60"
           >
-            {saving ? 'Registrando…' : 'Confirmar'}
+            {saving ? 'Registrando…' : 'Confirmar pagamento'}
           </button>
         </div>
       </form>
