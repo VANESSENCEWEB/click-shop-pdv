@@ -4,7 +4,7 @@
 
 Ponto de venda web para uma loja de conveniência: o operador abre o caixa, busca produtos por código ou nome e vê o **cupom sendo montado ao vivo** enquanto registra os itens. Recebe em dinheiro, cartão ou Pix (com cálculo de troco) e emite o comprovante. A baixa de estoque acontece numa **transação atômica no Firestore**.
 
-**[Ver o app no ar →](https://vanessenceweb.github.io/click-shop-pdv/)** · entre com qualquer código de operador de 3 a 20 letras ou números (ex.: `001`).
+**[Abrir a demonstração →](https://vanessenceweb.github.io/click-shop-pdv/?demo)** · entra direto no caixa. Pelo [endereço normal](https://vanessenceweb.github.io/click-shop-pdv/), use qualquer código de operador de 3 a 20 letras ou números (ex.: `001`).
 
 ## Funcionalidades
 
